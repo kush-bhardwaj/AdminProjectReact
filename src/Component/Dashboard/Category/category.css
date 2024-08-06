@@ -1,0 +1,18 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+.div{
+    font-size: 15px;
+    width: 100%;
+}
+.div>table{
+    width: 100%;
+    font-size: 12px;
+}
+
+.div>table thead tr th{
+   font-size: 10px;
+ font-weight: bold;
+   text-align: center;
+}

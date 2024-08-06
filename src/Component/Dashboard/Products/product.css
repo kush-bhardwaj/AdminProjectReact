@@ -1,0 +1,58 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+.addForm{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top:5px;
+}
+.addForm >form{
+    width: 80%;
+    padding: 5px;
+    margin: 10px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.addForm >form>select{
+    width: 45%;
+    padding: 10px;
+    margin: 3px;
+}
+.addForm >form>input{
+    width: 45%;
+    padding: 10px;
+    margin: 3px;
+    border: .5px solid lightgray;
+}
+.addForm >form>textarea{
+    width: 90.5%;
+    padding: 10px;
+    margin: 3px;
+    border: .5px solid lightgray;
+}
+.addButton{
+background-color: beige;
+    letter-spacing: .5px;
+}
+.imagebutton{
+    border: .5px solid #0ad6ad;
+    border-radius: 5px;
+    width: 70px;
+    color: #0ad6ad;
+    padding: 2px;
+    text-align: center;
+    vertical-align: middle;
+    transition: .5s ease all;
+}
+.imagebutton:hover{
+    background-color: #0ad6ad;
+   color: #fff;
+}

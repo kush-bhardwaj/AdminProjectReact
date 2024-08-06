@@ -1,0 +1,228 @@
+.MainComponent {
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    position: relative;
+}
+
+.MainComponent>.LeftSideBar {
+    width: 15%;
+    
+   
+}
+
+.MainComponent>.RightSideBar {
+    width: 85%;
+    margin: 5px 5px;
+    max-height: 100vh;
+    overflow-y:scroll;
+}
+
+.DashboardMenu {
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(248, 244, 244);
+    margin: 5px;
+    /* box-shadow: 1px 1px 1px 1px whitesmoke; */
+    border: .5px solid rgba(0, 0, 0, 0.01);
+    height: 100vh;
+    overflow-y: scroll;
+    
+}
+.DashboardMenu>ul {
+    list-style-type: none;
+    padding: 5px;
+    overflow: hidden;
+    max-height: 100vh;
+    
+   
+}
+
+.DashboardMenu>ul>li:nth-child(1) {
+    background-color: #fff;
+}
+
+.DashboardMenu>ul>li {
+    margin: 5px;
+    text-align: justify;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid transparent;
+    position: relative;
+    vertical-align: middle;
+    text-transform: capitalize;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.DashboardMenu>ul>li:hover {
+    background-color: #fff;
+
+}
+
+.DashboardMenu>ul>li:hover ::after {
+    content: "\00BB";
+    font-size: 25px;
+    position: absolute;
+    left: 77%;
+    top: 0px;
+    vertical-align: middle;
+
+}
+
+.DashboardMenu>ul>li>a {
+    text-decoration: none;
+    color: #000;
+}
+
+.dashboardGraph {
+    /* background-color: red; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: space-between;
+
+
+}
+
+.dashboardGraph>.dashboardGraphInsider {
+    /* background-color: red; */
+    width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid red;
+}
+
+.dashboardGraphInsider>.dashCard {
+    width: 30%;
+    text-align: center;
+    margin: 5px;
+    border-radius: 5px;
+    border: .5px solid lightgray;
+
+}
+
+.dashboardGraphInsider>.dashCard>.topCard {
+    max-width: 100%;
+    padding: 15px;
+    color: #fff;
+    background: linear-gradient(to left, #f46b45, #eea849);
+
+}
+.RightSideBar >.addsubcat{
+
+    width: 100%;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #0ad6ad;
+    color: #fff;
+    
+}
+.RightSideBar >.addsubcat>button{
+    background-color:"";
+    width: 160px;
+    cursor: pointer;
+    color: #2ddab2;
+    text-align: center;
+    letter-spacing: 1px;
+    background-color: #cffceb;
+    font-size: 15px;
+    padding: 7px;
+    border-radius: 5px;
+    outline: none;
+    border: .5px solid #2ddab2;
+    font-weight: 600;
+    transition: .3s ease all;
+}
+
+.RightSideBar >.addsubcat>button:hover{
+    background-color: #ffff;
+    transition: .3s ease all;
+    border: .5px solid #2ddab2;
+}
+.RightSideBar>.addsubcat>.select{
+    width: 200px;
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+    outline: none;
+    margin-top: 5px;
+    background-color: transparent;
+}
+.select>option{
+    text-align:justify;
+    font-weight: bold;
+}
+.select>select:hover{
+    cursor: pointer;
+}
+.RightSideBar>.subcatTable{
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+}
+.RightSideBar>.subcatTable{
+    text-align: center;
+    padding: 7px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.RightSideBar>.subcatTable>table{
+   width: 100%;
+   border: .5px solid lightgray;
+   border-radius: 10px;
+}
+.RightSideBar>.subcatTable>table th{
+    border: 1px solid lightgray;
+    padding: 5px;
+}
+.RightSideBar>.subcatTable>table td{
+    border: .5px solid lightgray;
+}
+.RightSideBar>.category{
+    width: 100%;    
+    background-color: rebeccapurple;
+    display: flex;
+    /* justify-content:;   */
+}
+
+.RightSideBar >.addsubcat >input{
+    width: 30%;
+    padding: 7px;
+    border: .5px solid lightgray;
+    border-radius: 5px;
+    outline: none;
+    vertical-align: middle;
+    color: rgb(38, 37, 37);
+    letter-spacing: 1px;
+}
+.RightSideBar >.addsubcat >input::placeholder{
+    font-size: 12px;
+    vertical-align: middle;
+    letter-spacing: 1px;
+}
+.RightSideBar >.productDiv{
+    /* background-color: red; */
+    max-width: 100%;
+    padding: 5px;
+    display: flex;
+    justify-content:start ;
+    align-items: center;
+}
+.RightSideBar >.productDiv>.prductTable{
+    width: 100%;
+    font-size: 12px;
+    text-align: center;
+}
+.RightSideBar >.productDiv>.prductTable tr td{
+    text-align: center;
+    color: rgb(23, 22, 22);
+}

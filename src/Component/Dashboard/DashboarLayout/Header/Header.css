@@ -1,0 +1,42 @@
+.bg-color
+{ background-color: #0ad6ad;}
+
+.AdminHeader{
+    max-width: 100%;
+    background-color: #0ad6ad;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+.AdminHeader >.AdminNav{
+    background-color:transparent;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.AdminHeader >.AdminNav >.LeftDiv{
+    width: 30%;
+    letter-spacing: 1px;
+}
+.AdminHeader >.AdminNav >.RightDiv{
+    width: 60%;
+    text-align: right;
+    font-weight: bold;
+    letter-spacing: 1px ;
+}
+.headerImage{
+    width: 60px;
+}
+.mobileHeader{
+    display: none;
+}
+@media only screen and (max-width:320px){
+    
+ .mobileHeader{
+    display: block;
+ } 
+}
