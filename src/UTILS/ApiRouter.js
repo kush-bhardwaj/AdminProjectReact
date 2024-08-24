@@ -34,10 +34,14 @@ export const API_ROUTER = {
     },
     slider:{
         getslider:"/slider/getSlider",
-        addslider:"/slider/addSlider"
+        addslider:"/slider/addSlider",
+        delteslider:"/slider/deleteSlider"
     },
     notification:{
         addNotifcation:'/notification/addNotification',
         getNotifcation:"/notification/getAllNotification"
+    },
+    download:{
+        download:"/download"
     }
 }

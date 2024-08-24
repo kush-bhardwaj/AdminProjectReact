@@ -19,6 +19,8 @@ import CategorySub from './Component/Dashboard/Category/CategorySubcat';
 import AddProduct from './Component/Dashboard/Products/AddProduct';
 import ProductDetails from './Component/Dashboard/Products/PorductDetails';
 import Notification from './Component/Dashboard/notification/Notification';
+import Loader from './Component/Dashboard/Loader/Loader';
+import Main from './context/Main';
 function App() {
   const router = createBrowserRouter([
     {path:"",element:<AdminSignup />},
@@ -44,7 +46,9 @@ function App() {
     },
   ]);
   return (
-    <RouterProvider router={router} />
+    <Main>
+      <RouterProvider router={router} />
+    </Main>
   )
 
 }

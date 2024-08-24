@@ -1,18 +1,21 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaAngleDoubleLeft ,FaAngleDoubleRight} from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import { TbListDetails } from "react-icons/tb";
 import { Table } from "react-bootstrap";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdUpdate } from "react-icons/md"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import AddProduct from "./AddProduct";
 import Modal from 'react-bootstrap/Modal';
-import { DeleteProductApi, GetAllProdectApi, GetAllProdectWithImageApi, SearchProductApi, updateProductApi } from "../../../API/api";
+import { DeleteProductApi, DownloadApi, GetAllProdectApi, GetAllProdectWithImageApi, SearchProductApi, updateProductApi } from "../../../API/api";
 import UpdateProduct from './ProductUpdate';
 import { Navigate, useNavigate } from 'react-router-dom';
 import UplpadProductImage from './UploadImageProduct';
+import Loader from '../Loader/Loader';
+import { UserInfo } from '../../../context/UserInfo';
 export default function Products(){
     const navigate = useNavigate()
     const [AddProducts, setAddProduct] = useState(false);
@@ -22,6 +25,10 @@ export default function Products(){
     const [upload, setUpload] = useState(false)
     const [productId, setProductId] =useState()
     const [productImg , setProductImg] = useState()
+    const [page, setPage] = useState(1)
+    const [load , setLoad] = useState(true)
+    const [show , setShow] = useState(true)
+    const {loginData} = useContext(UserInfo);
     const [searchProducts, setSearchProducts] = useState({
       productName:""
     })
@@ -31,16 +38,27 @@ export default function Products(){
       // setProductImg(image)
     }
     async function AllProducts(){
+      
        try{
-        const res = await GetAllProdectApi()
+        
+      
+          const res = await GetAllProdectApi(page)
+          if(res.status==="success"){
+            setAllProduct(res)
+            setLoad(false)
+          }
+        
+        //  console.log(res)
+    
+     
+        
        
-        setAllProduct(res)
        }catch(err){
         console.log(err)
        }
     }
 
-    //delete product api //
+    //delete product api // 
       const DeleteProduct = async (id)=>{
         try{
           const res = await DeleteProductApi(id);
@@ -52,12 +70,15 @@ export default function Products(){
     //delete api end//
 
     //search Product api start//
-       async  function searchHandle(event){
+       async function searchHandle(event){
         try{
           const res = await SearchProductApi(event.target.value)
-          console.log(res)
-            // const res = await SearchProductApi({[event.target.name]:event.target.value})
-            // console.log(res)
+          if(event.target.value!=="undefined" || event.target.value!==null ||event.target.value ==="" ){
+            setAllProduct(res)
+           }
+           else{
+           GetAllProdectApi(page)
+           }
         }catch(err){
           console.log(err)
         }
@@ -69,20 +90,26 @@ export default function Products(){
         setUpload(false)
     }
     
+    //download testing api
+    const DownloadKaro = async ()=>{
+      const res = await DownloadApi()
+    }
+    //download testing api end
     useEffect(()=>{
         AllProducts()
-        ImageAPi()
+        // ImageAPi()
        
-    },[])
+    },[page])
     return (
      <>
         <div className="addsubcat">
-                <h3>Products</h3>
+           <h3>Products {loginData?.name}</h3>
                 <input type="search" placeholder="Search Products" autoComplete="off" onChange={searchHandle} name='productName'></input>
                 <button onClick={()=>navigate("/addproduct")}>Add Products</button>
         </div>
         
-        <div className="productDiv">
+        <div className='tableData'>
+        {show?<div className="productDiv">
             <Table striped bordered hover className='prductTable'>
       <thead>
         <tr style={{textAlign:"center"}}>
@@ -94,9 +121,9 @@ export default function Products(){
           <th style={{fontWeight:"bold",color:"#0ad6ad"}}>Unit</th>
           <th style={{fontWeight:"bold",color:"#0ad6ad"}}>Rating</th>
           <th style={{fontWeight:"bold",color:"#0ad6ad"}}>Stock</th>
-          <th style={{fontWeight:"bold",color:"#0ad6ad"}}>Description</th>
-          {/* <th style={{fontWeight:"bold",color:"#0ad6ad"}}>Image</th> */}
-          <th style={{fontWeight:"bold",color:"#0ad6ad"}}>AddImage</th>
+          {/* <th style={{fontWeight:"bold",color:"#0ad6ad"}}>Description</th> */}
+          <th style={{fontWeight:"bold",color:"#0ad6ad"}}>Image</th>
+         
           <th style={{fontWeight:"bold",color:"#0ad6ad"}}>Update</th>
           <th style={{fontWeight:"bold",color:"#0ad6ad"}}>Delete</th>
           <th style={{fontWeight:"bold",color:"#0ad6ad"}}>Details</th>
@@ -115,11 +142,10 @@ export default function Products(){
              <td style={{cursor:"pointer",margin:"5px"}}>{e.productUnit}</td>
              <td style={{cursor:"pointer",margin:"5px"}}>{e.productRating}</td>
              <td style={{cursor:"pointer",margin:"5px"}}>{e.productStock}</td>
-             <td style={{cursor:"pointer",margin:"5px"}} >{e.productDescription}</td>
-             {/* <td style={{cursor:"pointer",margin:"5px"}} >{ImageAPi(e._id)}</td> */}
-             <td style={{cursor:"pointer",margin:"5px"}}><button className="imagebutton" onClick={()=>{setUpload(true);setProductId(e._id)}}>Add</button></td>
+             {/* <td style={{cursor:"pointer",margin:"5px"}} >{e.productDescription}</td> */}
+             <td style={{cursor:"pointer",margin:"5px"}} ><img width={100} height={70} src={`http://localhost:5000/image/${e.productImg}`} alt='productImages'></img></td>
              <td style={{cursor:"pointer",margin:"5px"}}><button className="imagebutton" onClick={()=>{setUpdateData(true);setSendUpdate(e)}}>Update</button></td>
-             <td style={{cursor:"pointer",margin:"5px"}}><button className="imagebutton" onClick={()=>DeleteProduct(e._id)}>Delete</button></td>
+             <td style={{cursor:"pointer",margin:"5px"}}><button className="imagebutton" onClick={()=>DeleteProduct(e?._id)}>Delete</button></td>
              <td style={{cursor:"pointer",margin:"5px"}}><button className="imagebutton" onClick={()=>navigate("./productDetails")}>Details</button></td>
              {/* <td style={{cursor:"pointer",margin:"5px"}}><MdUpdate  /></td> */}
              {/* <td style={{cursor:"pointer",margin:"5px"}}><RiDeleteBin6Line /></td> */}
@@ -129,7 +155,17 @@ export default function Products(){
       </tbody>
     </Table>
     <ToastContainer />
+    <div className='arrows'>
+       <span onClick={()=>setPage(page-1)}><FaAngleDoubleLeft className='arrowIcon'/></span>
+          <div><span>{page} of </span><span>{allProducts?.pages}</span></div>
+       <span onClick={()=>setPage(page+1)}> <FaAngleDoubleRight className='arrowIcon'/></span>
+       <button ><a className='aButton' href='http://localhost:5000/api/download'>Download</a></button>
+          </div>
+         
+        </div>:false}
+        {load?<Loader />:false}
         </div>
+         
         {/* Add category Component */}
         <Modal show={AddProducts} onHide={CancelForm}>
                 <Modal.Header closeButton>
@@ -167,7 +203,7 @@ export default function Products(){
                 </Modal.Footer>
             </Modal>
      
-     
+       
 
            
      </>

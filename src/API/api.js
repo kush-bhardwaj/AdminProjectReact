@@ -84,17 +84,17 @@ export const DeleteCategory = async (data) => {
 
 //deltee category end
 //search categoryn api start
-export const SearchCatApi = async (searchData) => {
+export const SearchCatApi = async (name) => {
+    console.log(name)
     try {
         const header = {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
                 "Authorization":`Bearer ${getStorage().data.token}`
-            },
-            body: JSON.stringify(searchData)
+            }
         }
-        const res = await fetch(`${API_BASE_URL}${API_ROUTER.category.search}/${searchData}`, header)
+        const res = await fetch(`${API_BASE_URL}${API_ROUTER.category.search}?name=${name}`, header)
         return await res.json()
     } catch (err) {
         console.log(err)
@@ -234,13 +234,14 @@ export const SubcategoryAggregate = async (id)=>{
 //PRODUCT API'S
 //addProduct api..
 export const AddProductApi = async (data) => {
+    console.log("addData",data)
     try {
         const header = {
             method: "POST",
-            headers: { "Content-type": "application/json",
+            headers: { 
                 "Authorization":`Bearer ${getStorage().data.token}`
              },
-            body: JSON.stringify(data)
+            body:data
         }
         const resData = await fetch(`${API_BASE_URL}${API_ROUTER.product.addProduct}`, header);
         const resObj = await resData.json();
@@ -252,7 +253,8 @@ export const AddProductApi = async (data) => {
 
 
 //get all product api..
-export const GetAllProdectApi = async () => {
+export const GetAllProdectApi = async (page) => {
+    console.log(page)
     try {
         const header = {
             method: "GET",
@@ -260,7 +262,7 @@ export const GetAllProdectApi = async () => {
                 "Authorization":`Bearer ${getStorage().data.token}`
              }
         }
-        const resData = await fetch(`${API_BASE_URL}${API_ROUTER.product.allProduct}`, header);
+        const resData = await fetch(`${API_BASE_URL}${API_ROUTER.product.allProduct}?pageno=${page}`, header);
         const resObj = await resData.json();
         return resObj;
     } catch (err) {
@@ -418,6 +420,23 @@ export const UploadImageApi = async(image)=>{
 }
 //get slider end
 
+//delete slider api start
+
+export const DelteSliderApi = async (id)=>{
+    console.log("id",id)
+    const header ={
+        method:"DELETE",
+        headers:{
+            "Content-type":"application/json",
+            "Authorization":`Bearer ${getStorage().data.token}`,
+        }
+    }
+    const res = await fetch(`${API_BASE_URL}${API_ROUTER.slider.delteslider}/${id}`,header)
+    console.log(res)
+    return await res.json();
+}
+
+//deleten slider api end
 //slider api end here
 
 
@@ -457,4 +476,17 @@ export const GetAllNotification = async ()=>{
 //NOTIFICATION API END
 
 
-//upload image api testting
+//download api 
+
+export const DownloadApi = async()=>{
+   const header={
+        method:"GET",
+        headers:{
+            "Content-type":"application/pdf"
+        }
+    }
+    const res = await fetch(`${API_BASE_URL}${API_ROUTER.download.download}`,header)
+    return await res.blob()
+}
+
+//dowbnload api end
